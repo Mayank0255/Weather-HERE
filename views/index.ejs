@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>Weather HERE</title>
+  <link rel="stylesheet" href="/stylesheets/app.css">
+  
+</head>
+
+<body>
+  <script>
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(async position => {
+        const lat = position.coords.latitude;
+        const long = position.coords.longitude;
+        document.getElementById('latitude').textContent = lat.toFixed(3);
+        document.getElementById('longitude').textContent = long.toFixed(3);
+        var text = `/weather/${lat}/${long}`;
+        document.getElementById('myLink').href = text;
+
+
+        const data = {
+          lat,
+          long
+        };
+        const options = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        };
+        const response = await fetch("/geoloc", options);
+        const fetch_data = await response.json();
+        // console.log(fetch_data);
+
+      });
+    } else {
+      console.log("geolocation not available");
+    }
+  </script>
+  <div>
+    <div class="top">
+      <div class="title">
+        <h1>Weather HERE</h1>
+      </div>
+    </div>
+    
+    <div class="bottom">
+      <div class="left-sec">
+        <div>
+          <h3>Latitude: <span id="latitude"></span>&deg;</h3>
+          <h3>Longitude: <span id="longitude"></span>&deg;</h3>
+        </div>
+      </div>
+      <div class="right-sec">
+        <div>
+          <a class="link" id="myLink" href=''>Check Weather</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

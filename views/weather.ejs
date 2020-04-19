@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>Weather HERE</title>
+    <link rel="stylesheet" href="/stylesheets/app.css">
+</head>
+
+<body>
+
+<div>
+    <div class="top">
+        <div class="title">
+            <h1>Weather HERE</h1>
+        </div>
+        <div>
+            <a  class="link" href='/'>Go Back</a>
+        </div>
+    </div>
+    
+    <div class="bottom">
+        <div class="left-sec">
+            
+            <div>
+                <h3>Latitude: <span id="latitude"><%=lat.substring(0,6)%></span>&deg;</h3>
+                <h3>Longitude: <span id="longitude"><%=long.substring(0,6)%></span>&deg;</h3>
+            </div>
+        </div>
+        <div class="right-sec">
+            <canvas id="icon1" class="<%=weather.currently.icon.replace(/-/g, '_')%>" width="128" height="128"></canvas>
+            <h2 style="text-align: center; margin-top: 10px;"><%=weather.currently.summary%></h2>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/scripts/skycons.js"></script>
+    <script>
+    var skycons = new Skycons({"color": "white"});
+    var state = document.getElementById('icon1').className;
+    // console.log(state);
+    
+    if(state == "clear_day"){
+        skycons.add("icon1", Skycons.clear_day); 
+    }
+    else if(state == "clear_night"){
+        skycons.add("icon1", Skycons.clear_night); 
+    }
+    else if(state == "partly_cloudy_day"){
+        skycons.add("icon1", Skycons.partly_cloudy_day); 
+    } 
+    else if(state == "partly_cloudy_night"){
+        skycons.add("icon1", Skycons.partly_cloudy_night); 
+    }
+    else if(state == "cloudy"){
+        skycons.add("icon1", Skycons.cloudy); 
+    }
+    else if(state == "rain"){
+        skycons.add("icon1", Skycons.rain); 
+    }
+    else if(state == "sleet"){
+        skycons.add("icon1", Skycons.sleet); 
+    } 
+    else if(state == "snow"){
+        skycons.add("icon1", Skycons.snow); 
+    }
+    else if(state == "wind"){
+        skycons.add("icon1", Skycons.wind); 
+    }
+    else if(state == "fog"){
+        skycons.add("icon1", Skycons.fog); 
+    }
+    
+    skycons.play();
+
+    // skycons.set("icon1", Skycons.partly_cloudy_night);
+</script>
+</body>
+</body>
+
+</html>
